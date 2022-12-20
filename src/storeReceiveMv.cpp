@@ -41,7 +41,7 @@ void StoreReceiveMv::setOriginalDp(const string& assetName, Datapoint *dp, const
     }
 
     DatapointValue newValue(dp->getData());
-    Datapoint *newDatapoint = new Datapoint(dp->getName(), newValue);
+    auto newDatapoint = new Datapoint(dp->getName(), newValue);
     
     storeData dataToStore;
     dataToStore.dpStored = newDatapoint;
@@ -56,6 +56,6 @@ void StoreReceiveMv::setOriginalDp(const string& assetName, Datapoint *dp, const
  * 
  * @return map of <std::string, storeData>
 */
-std::map<std::string, storeData> StoreReceiveMv::getMap() { 
+std::map<std::string, storeData> StoreReceiveMv::getMap() const { 
     return mapStoredData; 
 }

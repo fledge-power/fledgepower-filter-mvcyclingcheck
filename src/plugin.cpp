@@ -83,7 +83,7 @@ PLUGIN_HANDLE plugin_init(ConfigCategory* config,
 			  OUTPUT_HANDLE *outHandle,
 			  OUTPUT_STREAM output)
 {
-	FilterMvCyclingCheck *filterMvCyclingCheck = new FilterMvCyclingCheck(FILTER_NAME,
+	auto filterMvCyclingCheck = new FilterMvCyclingCheck(FILTER_NAME,
                                         *config,
                                         outHandle,
                                         output);
@@ -100,7 +100,7 @@ PLUGIN_HANDLE plugin_init(ConfigCategory* config,
 void plugin_ingest(PLUGIN_HANDLE *handle,
 		   READINGSET *readingSet)
 {
-	FilterMvCyclingCheck *filterMvCyclingCheck = (FilterMvCyclingCheck *) handle;
+	auto filterMvCyclingCheck = (FilterMvCyclingCheck *) handle;
 	filterMvCyclingCheck->ingest(readingSet);
 }
 
@@ -112,7 +112,7 @@ void plugin_ingest(PLUGIN_HANDLE *handle,
  */
 void plugin_reconfigure(PLUGIN_HANDLE *handle, const string& newConfig)
 {
-	FilterMvCyclingCheck *filterMvCyclingCheck = (FilterMvCyclingCheck *)handle;
+	auto filterMvCyclingCheck = (FilterMvCyclingCheck *)handle;
 	filterMvCyclingCheck->reconfigure(newConfig);
 }
 
@@ -121,7 +121,7 @@ void plugin_reconfigure(PLUGIN_HANDLE *handle, const string& newConfig)
  */
 void plugin_shutdown(PLUGIN_HANDLE *handle)
 {
-	FilterMvCyclingCheck *filterMvCyclingCheck = (FilterMvCyclingCheck *)handle;
+	auto filterMvCyclingCheck = (FilterMvCyclingCheck *)handle;
 	delete filterMvCyclingCheck;
 }
 

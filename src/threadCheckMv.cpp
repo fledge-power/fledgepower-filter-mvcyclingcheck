@@ -24,10 +24,7 @@ using namespace std;
 /**
  * Constructor
 */
-ThreadCheckMv::ThreadCheckMv() : 
-        m_started(false), 
-        m_checkPeriod(30),
-        m_timeoutLoopThread(1000)
+ThreadCheckMv::ThreadCheckMv()
 {
 }
  
@@ -36,7 +33,7 @@ ThreadCheckMv::ThreadCheckMv() :
 */
 ThreadCheckMv::~ThreadCheckMv() {
     stop();
-};
+}
  
 /**
  * Start the thread  for checking the old timestamp measured
@@ -117,7 +114,6 @@ void ThreadCheckMv::runCheckMv(){
                 
                 string beforeLog = ConstantsMvCyclingCheck::NamePlugin + " - " + store.assetName.c_str() + " - ingest : ";
 
-                Datapoint *dataPointOriginal = item.second.dpStored; 
                 DatapointValue dpOriginal(store.dpStored->getData());
 
                 // Get PIVOT.GTIM
@@ -147,8 +143,8 @@ void ThreadCheckMv::runCheckMv(){
                
                 Logger::getLogger()->debug("%s data non-renewal %s, timestamp : %lu, current timestamp %lu", beforeLog.c_str(), store.dpStored->toJSONProperty().c_str(), item.second.timestamp, currentTimestamp);
  
-                Datapoint *dp = new Datapoint(item.second.dpStored->getName(), dpOriginal);
-                Reading *reading = new Reading(store.assetName, dp);
+                auto dp = new Datapoint(item.second.dpStored->getName(), dpOriginal);
+                auto reading = new Reading(store.assetName, dp);
                 m_vecReadingNoRenewal.push_back(reading);
  
                 deleteMv(new_ID);
@@ -165,7 +161,7 @@ void ThreadCheckMv::runCheckMv(){
  * @param dpsQ : pointer of dictionary on PIVOT.GTIM.MvTyp.q
  * @param beforeLog : prefix of logs
 */
-void ThreadCheckMv::setQuality(Datapoints *dpsQ, string beforeLog) {
+void ThreadCheckMv::setQuality(Datapoints *dpsQ, const string& beforeLog) {
     // Get PIVOT.GTIM.MvTyp.q.DetailQuality
     Datapoints *dpsDetailQuality = findDictElement(dpsQ, ConstantsMvCyclingCheck::KeyMessagePivotJsonDetailQuality);
     if(dpsDetailQuality == nullptr){
@@ -192,7 +188,7 @@ void ThreadCheckMv::setQuality(Datapoints *dpsQ, string beforeLog) {
  * @param dpsRecGtIM : pointer of dictionary on PIVOT.GTIM.MvTyp
  * @param beforeLog : prefix of logs
 */
-void ThreadCheckMv::setTimestampQuality(Datapoints *dpsRecGtIM, string beforeLog) {
+void ThreadCheckMv::setTimestampQuality(Datapoints *dpsRecGtIM, const string& beforeLog) {
     // Get PIVOT.GTIM.TmOrg
     Datapoints *dpsTmOrg = findDictElement(dpsRecGtIM, ConstantsMvCyclingCheck::KeyMessagePivotJsonTmOrg);
     if(dpsTmOrg == nullptr){
@@ -223,7 +219,7 @@ void ThreadCheckMv::setTimestampQuality(Datapoints *dpsRecGtIM, string beforeLog
  * @param beforeLog : prefix of logs
  * @param currentTimestamp : timestamp current (ms)
 */
-void ThreadCheckMv::setTimestampMVNoRenewal(Datapoints *dpsMvTyp, string beforeLog, long currentTimestamp) {
+void ThreadCheckMv::setTimestampMVNoRenewal(Datapoints *dpsMvTyp, const string& beforeLog, long currentTimestamp) {
     // Get PIVOT.GTIM.MvTyp.t
     Datapoints *dpTimestamps = findDictElement(dpsMvTyp, ConstantsMvCyclingCheck::KeyMessagePivotJsonTs);
     if(dpTimestamps == nullptr){
@@ -242,7 +238,7 @@ void ThreadCheckMv::setTimestampMVNoRenewal(Datapoints *dpsMvTyp, string beforeL
 /**
  * The method reads the non-renewal measured value
 */
-vector<Reading*> ThreadCheckMv::getReadingsNoRenewal() {
+vector<Reading*> ThreadCheckMv::getReadingsNoRenewal() const {
     return m_vecReadingNoRenewal;
 }
  
@@ -258,7 +254,7 @@ void ThreadCheckMv::clearReadingsNoRenewal() {
  * 
  * @return int value on check period
 */
-int ThreadCheckMv::getCheckPeriod() { 
+int ThreadCheckMv::getCheckPeriod() const { 
     return m_checkPeriod; 
 }
 
@@ -276,6 +272,6 @@ StoreReceiveMv& ThreadCheckMv::getStore() {
  * 
  * @return booleen on state thread
 */
-bool ThreadCheckMv::getStarted() { 
+bool ThreadCheckMv::getStarted() const { 
     return m_started; 
 }

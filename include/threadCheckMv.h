@@ -29,26 +29,26 @@ public:
 
     void receiveMv(const std::string& assetName, Datapoint *dp, const std::string& id);
     void clearReadingsNoRenewal();
-    std::vector<Reading*> getReadingsNoRenewal();
+    std::vector<Reading*> getReadingsNoRenewal() const;
 
     void            setCheckPeriod(int checkPeriod);
-    int             getCheckPeriod();
+    int             getCheckPeriod() const ;
     StoreReceiveMv& getStore();
-    bool            getStarted();
+    bool            getStarted() const;
 
 private:
-    void setQuality(DatapointUtility::Datapoints *dpsQ, std::string beforeLog);
-    void setTimestampQuality(DatapointUtility::Datapoints *dpsRecGtIM, std::string beforeLog);
-    void setTimestampMVNoRenewal(DatapointUtility::Datapoints *dpsMvTyp, std::string beforeLog, long currentTimestamp);
+    void setQuality(DatapointUtility::Datapoints *dpsQ, const std::string& beforeLog);
+    void setTimestampQuality(DatapointUtility::Datapoints *dpsRecGtIM, const std::string& beforeLog);
+    void setTimestampMVNoRenewal(DatapointUtility::Datapoints *dpsMvTyp, const std::string& beforeLog, long currentTimestamp);
 
     void deleteMv(const std::string& id);
 
     std::thread     *m_checkMv = nullptr;   
     StoreReceiveMv  m_store;
 
-    int             m_checkPeriod;
-    int             m_timeoutLoopThread;
-    bool            m_started;
+    bool            m_started           = false;
+    int             m_checkPeriod       = 30;
+    int             m_timeoutLoopThread = 1000;
     std::mutex      m_mutex;
 
     std::vector<Reading*> m_vecReadingNoRenewal;

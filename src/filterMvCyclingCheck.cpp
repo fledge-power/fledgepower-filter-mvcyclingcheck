@@ -143,7 +143,7 @@ void FilterMvCyclingCheck::reconfigure(const std::string& newConfig) {
     
     ConfigCategory config("newConfig", newConfig);
     if (config.itemExists("check_period")) {
-        m_threadCheckMv.setCheckPeriod(strtol(config.getValue("check_period").c_str(), NULL, 10)); // 
+        m_threadCheckMv.setCheckPeriod(stoi(config.getValue("check_period").c_str())); 
     }
 }
 

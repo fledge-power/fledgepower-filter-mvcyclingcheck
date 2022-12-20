@@ -28,7 +28,7 @@ class StoreReceiveMv {
         void setOriginalDp(const std::string& assetName, Datapoint *dp, const std::string& identifier);
         void eraseStoreMap(const std::string& identifier);
 
-        std::map<std::string, storeData> getMap();
+        std::map<std::string, storeData> getMap() const;
         
     private:
         std::map<std::string, storeData> mapStoredData;

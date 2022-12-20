@@ -20,7 +20,7 @@
 */
 long UtilityPivot::toTimestamp(long secondSinceEpoch, long fractionOfSecond) {
     long timestamp = 0;
-    long msPart = round((fractionOfSecond * 1000L) / 16777216.0);
+    long msPart = (long)(round((fractionOfSecond * 1000L) / 16777216.0));
     timestamp = (secondSinceEpoch * 1000L) + msPart;
     return timestamp;
 }
@@ -42,6 +42,6 @@ std::pair<long, long> UtilityPivot::fromTimestamp(long timestamp) {
 */
 long UtilityPivot::getCurrentTimestampMs() {
     struct timeval timestamp;
-    gettimeofday(&timestamp, NULL);
+    gettimeofday(&timestamp, nullptr);
     return timestamp.tv_sec * 1000 + (timestamp.tv_usec / 1000L);
 }
