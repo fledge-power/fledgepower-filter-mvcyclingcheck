@@ -13,7 +13,7 @@ static string nameReading = "data_test";
 
 static string configure = QUOTE({
     "check_period": {
-        "value": "0"
+        "value": "1"
     },
     "enable": {
         "value": "true"
@@ -149,7 +149,7 @@ protected:
         ASSERT_EQ(filter->getThread().getStore().getMap().size(), 1);
 
         // sleep 1.2s
-        this_thread::sleep_for(chrono::milliseconds(1200));
+        this_thread::sleep_for(chrono::milliseconds(2200));
 
         // Check no renewal
         ASSERT_EQ(filter->getThread().getReadingsNoRenewal().size(), 1); 
