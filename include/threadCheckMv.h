@@ -20,7 +20,7 @@
 class ThreadCheckMv {
 
 public:  
-    ThreadCheckMv();
+    ThreadCheckMv() = default;
     ~ThreadCheckMv();
 
     void start();

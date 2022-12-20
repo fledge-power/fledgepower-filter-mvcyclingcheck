@@ -22,13 +22,6 @@ using namespace DatapointUtility;
 using namespace std;
  
 /**
- * Constructor
-*/
-ThreadCheckMv::ThreadCheckMv()
-{
-}
- 
-/**
  * Destructor
 */
 ThreadCheckMv::~ThreadCheckMv() {
