@@ -20,7 +20,7 @@
 */
 long UtilityPivot::toTimestamp(long secondSinceEpoch, long fractionOfSecond) {
     long timestamp = 0;
-    long msPart = round((double)(fractionOfSecond * 1000) / 16777216.0);
+    auto msPart = (long)round((double)(fractionOfSecond * 1000) / 16777216.0);
     timestamp = (secondSinceEpoch * 1000L) + msPart;
     return timestamp;
 }
