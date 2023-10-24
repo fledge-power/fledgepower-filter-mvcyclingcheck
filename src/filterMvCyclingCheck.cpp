@@ -117,7 +117,8 @@ void FilterMvCyclingCheck::ingest(READINGSET *readingSet)
         Logger::getLogger()->debug("%s Receiv and store PIVOTTM %s", beforeLog.c_str(), dp->toJSONProperty().c_str());
 
     }
-    readingSet->append(m_threadCheckMv.getReadingsNoRenewal());
+    vector<Reading*> noRenewalReading = m_threadCheckMv.getReadingsNoRenewal();
+    readingSet->append(noRenewalReading);
     
     (*m_func)(m_data, readingSet);
 
